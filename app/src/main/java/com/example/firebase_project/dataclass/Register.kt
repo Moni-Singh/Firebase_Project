@@ -7,6 +7,7 @@ data class Register(
     val bioinfo: String = "",
     val gender: String = "",
     val birthday: String = "",
-    val education: String = ""
+    val education: String = "",
+    val role :String = "User"
 
 )

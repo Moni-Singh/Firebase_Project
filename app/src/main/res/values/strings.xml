@@ -22,6 +22,20 @@
         <item name="android:textColorHint">@color/hintTextColor</item>
         <!-- Customize your theme here. -->
     </style>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="Person">
+        <item>1 persons</item>
+        <item>2 persons</item>
+        <item>3 persons</item>
+        <item>4 persons</item>
+        <item>5 persons</item>
+        <item>6 persons</item>
+        <item>7 persons</item>
+        <item>8 persons</item>
+        <item>9 persons</item>
+        <item>10 persons</item>
+    </string-array>
 </resources>

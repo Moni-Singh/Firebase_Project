@@ -1,6 +1,7 @@
 package com.example.firebase_project.dataclass
 
 data class ChildItem(
-    val title : String ,
-    val logo : Int
+    val uid: String = "",
+    val title : String = "" ,
+    val image: String = ""
     )

@@ -31,8 +31,6 @@ class RegisterPage : AppCompatActivity() {
         setContentView(R.layout.activity_register_page)
 
 
-        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val usersRef: DatabaseReference = database.getReference("Users")
 
         auth = Firebase.auth
         username = findViewById(R.id.regusername)
@@ -59,6 +57,7 @@ class RegisterPage : AppCompatActivity() {
         val email = emailreg.text.toString()
         val password = etPass.text.toString()
         val confirmPassword = etConfirmpass.text.toString()
+
 
 
 

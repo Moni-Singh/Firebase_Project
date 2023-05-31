@@ -16,6 +16,9 @@ import com.example.firebase_project.dataclass.Register
 import com.example.newproject.DataClass.UserProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class Profile : AppCompatActivity() {
@@ -33,34 +36,19 @@ class Profile : AppCompatActivity() {
     private lateinit var btnEditProfile: Button
 
     private lateinit var saveButton: Button
-
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
     private lateinit var database: FirebaseDatabase
     private lateinit var usersRef: DatabaseReference
     private lateinit var uid: String
-    private var isEditMode = false
+    private var isEditMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        fun enableEditText() {
-            nameEditText.isEnabled = true
-            bioinfoEditText.isEnabled = true
-            birthdayEditText.isEnabled = true
-            genderEditText.isEnabled = true
-            educationEditText.isEnabled = true
-            emailEditText.isEnabled = true
-        }
-
-        fun disableEditText() {
-            nameEditText.isEnabled = false
-            bioinfoEditText.isEnabled = false
-            birthdayEditText.isEnabled = false
-            genderEditText.isEnabled = false
-            educationEditText.isEnabled = false
-            emailEditText.isEnabled = false
-        }
-
+        storage = FirebaseStorage.getInstance()
+        storageRef = storage.reference
         database = FirebaseDatabase.getInstance()
         usersRef = database.getReference("Users")
         uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
@@ -78,7 +66,7 @@ class Profile : AppCompatActivity() {
 
         // Load user data from the database
         loadUserData()
-//Edit Profile
+        //Edit Profile
         btnEditProfile.setOnClickListener {
             enableEditText()
             isEditMode = true
@@ -155,15 +143,14 @@ class Profile : AppCompatActivity() {
             val birthday: String = birthdayEditText.text.toString()
             val gender: String = genderEditText.text.toString()
             val education: String = educationEditText.text.toString()
-            val imageUrl: String = imageView.toString()
+            val imageUrl: String = this.imageUrl
 
             if (isEditMode) {
                 if (validateInput()) {
                     isEditMode = false
                     disableEditText()
 
-                    val user =
-                        UserProfile(imageUrl, name, email, bioinfo, gender, birthday, education)
+                    val user = UserProfile(imageUrl, name, email, bioinfo, gender, birthday, education)
 
                     // Update user data in the database
                     val userRef = usersRef.child(uid)
@@ -182,14 +169,10 @@ class Profile : AppCompatActivity() {
                             ).show()
                         }
                     }
-
                 }
             } else {
-
                 Toast.makeText(applicationContext, "Data saved", Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
@@ -232,13 +215,36 @@ class Profile : AppCompatActivity() {
         return true
     }
 
+    fun enableEditText() {
+        nameEditText.isEnabled = true
+        bioinfoEditText.isEnabled = true
+        birthdayEditText.isEnabled = true
+        genderEditText.isEnabled = true
+        educationEditText.isEnabled = true
+        emailEditText.isEnabled = true
+        button.isEnabled = true
+        imageView.isEnabled = true
+    }
+
+    fun disableEditText() {
+        nameEditText.isEnabled = false
+        bioinfoEditText.isEnabled = false
+        birthdayEditText.isEnabled = false
+        genderEditText.isEnabled = false
+        educationEditText.isEnabled = false
+        emailEditText.isEnabled = false
+
+        button.isEnabled = false
+        imageView.isEnabled = false
+    }
+
     private fun loadUserData() {
-        // Retrieve user data from the database
+        disableEditText()
         val userRef = usersRef.child(uid)
         userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val user = dataSnapshot.getValue(Register::class.java)
+                    val user = dataSnapshot.getValue(UserProfile::class.java)
                     if (user != null) {
                         // Populate views with the retrieved data
                         nameEditText.setText(user.name)
@@ -249,42 +255,66 @@ class Profile : AppCompatActivity() {
                         educationEditText.setText(user.education)
                         imageUrl = user.image
                         if (imageUrl.isNotEmpty()) {
-
+                            Picasso.get().load(imageUrl).into(imageView)
                         }
                     }
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(applicationContext, "Failed to load user data", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(applicationContext, "Failed to load user data", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                0 -> {
-                    val image = data?.extras?.get("data") as Bitmap
-                    imageView.setImageBitmap(image)
-                }
                 1 -> {
                     val imageUri = data?.data
-                    imageView.setImageURI(imageUri)
+                    if (imageUri != null) {
+                        // Display the selected image using Picasso library
+                        Picasso.get().load(imageUri).into(imageView)
 
-                    // Get the image URL from the imageUri
-                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                    val cursor = contentResolver.query(imageUri!!, filePathColumn, null, null, null)
-                    cursor?.moveToFirst()
-                    val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
-                   imageUrl = columnIndex?.let { cursor.getString(it) } ?: ""
-                    cursor?.close()
+                        // Upload the image to Firebase Storage and get the download URL
+                        val imageRef = storageRef.child("images/$uid")
+                        imageRef.putFile(imageUri)
+                            .addOnSuccessListener { taskSnapshot ->
+                                // Get the download URL of the uploaded image
+                                taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
+                                    val imageUrl = uri.toString()
 
-
+                                    // Store the image URL in the database
+                                    val userRef = usersRef.child(uid)
+                                    userRef.child("image").setValue(imageUrl)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Toast.makeText(
+                                                    applicationContext,
+                                                    "Image uploaded successfully",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    applicationContext,
+                                                    "Failed to upload image",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                }
+                            }
+                            .addOnFailureListener { exception ->
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Failed to upload image: ${exception.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
                 }
             }
         }
     }
+
 }

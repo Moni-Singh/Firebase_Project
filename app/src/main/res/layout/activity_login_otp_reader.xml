@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/actLoginOtpClMain"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/img_splash_background">-->
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/actLoginOtpIvLoginLogo"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:contentDescription="@string/app_image"-->
+<!--            android:src="@drawable/img_splash_logo"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/actLoginOtpIvLoginTag"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_chainStyle="packed" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/actLoginOtpIvLoginTag"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|center_horizontal"-->
+<!--            android:src="@drawable/img_splash_key_to_access"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/actLoginOtpClLogin"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/actLoginOtpIvLoginLogo"-->
+<!--            app:layout_constraintVertical_chainStyle="packed" />-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/actLoginOtpClLogin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/login_top_rounded_grey"-->
+<!--            android:paddingTop="@dimen/_20sdp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvVerifyNumber"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/_20sdp"-->
+<!--                android:text="@string/verify_phone_no"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:textSize="@dimen/_16ssp"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpCvOtp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/actLoginOtpCvOtp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_15sdp"-->
+<!--                android:layout_marginTop="@dimen/dimen_5_dp"-->
+<!--                android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                app:cardCornerRadius="@dimen/dimen_15_dp"-->
+<!--                app:cardElevation="4dp"-->
+<!--                app:cardUseCompatPadding="true"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpBtnVerifyAndLogin"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/transparent"-->
+<!--                    android:paddingStart="@dimen/_10sdp"-->
+<!--                    android:paddingTop="@dimen/_20sdp"-->
+<!--                    android:paddingEnd="@dimen/_10sdp"-->
+<!--                    android:paddingBottom="@dimen/_20sdp">-->
+
+<!--                    <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                        android:id="@+id/actLoginOtpTvHintOtpCode"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/enter_your_otp_code"-->
+<!--                        android:textColor="@color/grey"-->
+<!--                        android:textSize="@dimen/_10ssp"-->
+<!--                        app:customFont="@string/MEDIUM"-->
+<!--                        app:layout_constraintEnd_toEndOf="@+id/actLoginOtpView"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/actLoginOtpView"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <com.gtl.gispm.customclasses.otpclasses.OtpView-->
+<!--                        android:id="@+id/actLoginOtpView"-->
+<!--                        style="@style/OtpWidget.OtpView"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="numberPassword"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/dark_greay"-->
+<!--                        android:textIsSelectable="false"-->
+<!--                        android:textSize="@dimen/_26ssp"-->
+<!--                        app:OtpHideLineWhenFilled="false"-->
+<!--                        app:OtpItemCount="6"-->
+<!--                        app:OtpItemSpacing="@dimen/_10sdp"-->
+<!--                        app:OtpLineColor="@color/otp_item_state"-->
+<!--                        app:OtpMaskingChar="*"-->
+<!--                        app:OtpState_filled="true"-->
+<!--                        app:OtpViewType="line"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/actLoginOtpTvHintOtpCode" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--            <com.gtl.gispm.customclasses.CustomButton-->
+<!--                android:id="@+id/actLoginOtpBtnVerifyAndLogin"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_35sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="@dimen/_20sdp"-->
+<!--                android:layout_marginEnd="@dimen/_20sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:background="@drawable/login_rounded_shadow_app_color"-->
+<!--                android:text="@string/verify_and_login"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="@dimen/_11ssp"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpTvOtpNotReceived"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvOtpNotReceived"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_25sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:gravity="start"-->
+<!--                android:singleLine="true"-->
+<!--                android:text="@string/did_not_received_code"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:textSize="@dimen/_11ssp"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpTvTermsService"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/actLoginOtpTvResendOtp"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvResendOtp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:gravity="end"-->
+<!--                android:singleLine="true"-->
+<!--                android:text="@string/resend_otp_in_two_min"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:textSize="@dimen/_11ssp"-->
+<!--                android:visibility="visible"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpTvTermsService"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/actLoginOtpTvResendTime" />-->
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvResendTime"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/_25sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:singleLine="true"-->
+<!--                android:text="02:00"-->
+<!--                android:textColor="@color/orange_btn_color"-->
+<!--                android:textSize="@dimen/_11ssp"-->
+<!--                android:visibility="visible"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpTvTermsService"-->
+<!--                app:layout_constraintEnd_toEndOf="parent" />-->
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvResendButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/_25sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:text="Resend"-->
+<!--                android:textColor="@color/orange_btn_color"-->
+<!--                android:textSize="@dimen/_11ssp"-->
+<!--                android:visibility="gone"-->
+<!--                app:customFont="@string/SEMI_BOLD"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpTvTermsService"-->
+<!--                app:layout_constraintEnd_toEndOf="parent" />-->
+
+
+<!--            <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                android:id="@+id/actLoginOtpTvTermsService"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_20sdp"-->
+<!--                android:layout_marginEnd="@dimen/_20sdp"-->
+<!--                android:layout_marginBottom="@dimen/_20sdp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/br_login_i_hear_by"-->
+<!--                android:textColor="@color/dark_greay"-->
+<!--                android:textSize="@dimen/_10ssp"-->
+<!--                app:customFont="@string/MEDIUM"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpViewBottomPowerBy"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--            <View-->
+<!--                android:id="@+id/actLoginOtpViewBottomPowerBy"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_1sdp"-->
+<!--                android:background="@drawable/login_top_shadow_gradient"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/actLoginOtpClBottomPowerBy" />-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/actLoginOtpClBottomPowerBy"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_50sdp"-->
+<!--                android:background="@color/light_grey"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent">-->
+
+
+<!--                <com.gtl.gispm.customclasses.CustomTextView-->
+<!--                    android:id="@+id/actLoginOtpTvPowerBy"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:text="@string/powered_by"-->
+<!--                    android:textColor="@color/grey"-->
+<!--                    android:textSize="@dimen/_9ssp"-->
+<!--                    app:customFont="@string/SEMI_BOLD"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@+id/actLoginOtpIvBottomLogo"-->
+<!--                    app:layout_constraintHorizontal_chainStyle="packed"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                <androidx.appcompat.widget.AppCompatImageView-->
+<!--                    android:id="@+id/actLoginOtpIvBottomLogo"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:contentDescription="@string/app_image"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/img_splash_bottom_logo"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintHorizontal_chainStyle="packed"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/actLoginOtpTvPowerBy"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <include layout="@layout/app_progress_dialog" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

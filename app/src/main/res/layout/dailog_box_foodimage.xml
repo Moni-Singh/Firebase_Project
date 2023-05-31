@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardviewDailog">
 
             <EditText
-                android:id="@+id/edtname"
+                android:id="@+id/edttittle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
@@ -94,12 +94,12 @@
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/bot_corner_border_list"
             android:padding="@dimen/_10sdp"
-            android:text="Cancel"
+            android:text="Submit"
+            android:onClick="SubmitButton"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,10 +110,9 @@
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="@drawable/bot_corner_border_list"
             android:padding="@dimen/_10sdp"
-            android:text="Submit"
+            android:text="Cancel"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/submitButton"

@@ -1,10 +1,13 @@
 package com.example.firebase_project
 
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -12,10 +15,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.example.newproject.Adapter.ImagePagerAdapter
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
@@ -35,6 +41,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var card5: CardView
     private lateinit var sharedPreferences: SharedPreferences
     lateinit var auth: FirebaseAuth
+    private lateinit var uid: String
 
 
 
@@ -61,6 +68,7 @@ class Dashboard : AppCompatActivity() {
 
         card5 = findViewById(R.id.card5)
         card5.setOnClickListener{
+
             val i = Intent(this@Dashboard,itemkids::class.java)
             startActivity(i)
         }
@@ -86,7 +94,8 @@ class Dashboard : AppCompatActivity() {
                     true
                 }
                 R.id.changepassword -> {
-
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    changepassword()
                     true
                 }
                 R.id.logout_menu -> {
@@ -135,28 +144,58 @@ class Dashboard : AppCompatActivity() {
         }, 2000, 2000) // Change image every 2 seconds
     }
 
-    private  fun logout() {
+    private fun changepassword() {
+        val resetMail = EditText(this)
+        val passwordChangeDialog = AlertDialog.Builder(this)
+        passwordChangeDialog.setTitle("Change Password")
+        passwordChangeDialog.setMessage("Enter your email to receive a change password link.")
+        passwordChangeDialog.setView(resetMail)
+        passwordChangeDialog.setPositiveButton("Change") { _, _ ->
+            val mail = resetMail.text.toString()
+            FirebaseAuth.getInstance().sendPasswordResetEmail(mail)
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        this@Dashboard,
+                        "Change Password Link Sent To Your Email.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this@Dashboard,
+                        "Error! Change Password Link Not Sent To Your Email: " + e.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+        passwordChangeDialog.setNegativeButton("Cancel", null)
+        passwordChangeDialog.show()
+    }
+
+    private fun logout() {
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Logout?")
-        builder.setMessage("Are you sure want to logout?")
+        builder.setMessage("Are you sure you want to logout?")
             .setCancelable(false)
-            .setPositiveButton("Yes") { dialogInterface, i ->
+            .setPositiveButton("Yes") { dialogInterface, _ ->
                 FirebaseAuth.getInstance().signOut()
-                val pref = getSharedPreferences("islogin", MODE_PRIVATE)
-                val editor = pref.edit()
-                editor.putBoolean("flag", false)
+                val sharedPreferences = getSharedPreferences("shared_Preference", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("islogin", false)
                 editor.apply()
-                Toast.makeText(applicationContext, "Logout Sucessfully  ", Toast.LENGTH_SHORT)
-                    .show()
-                startActivity(Intent(applicationContext, LoginPage::class.java))
+                Toast.makeText(applicationContext, "Logout Successfully", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@Dashboard, LoginPage::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
                 finish()
             }
-            .setNegativeButton(
-                "No"
-            ) { dialogInterface, i -> dialogInterface.cancel() }
+            .setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
         val alertDialog = builder.create()
         alertDialog.show()
-    }
+
+}
+
 
     private fun exit() {
 
